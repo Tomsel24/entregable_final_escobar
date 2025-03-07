@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "nombre": "Heladera No Frost",
+        "precio": 150000,
+        "imagen": "img/heladera.jpg"
+    },
+    {
+        "id": 2,
+        "nombre": "Lavarropas Automático",
+        "precio": 120000,
+        "imagen": "img/lavarropas.jpg"
+    },
+    {
+        "id": 3,
+        "nombre": "Microondas Digital",
+        "precio": 45000,
+        "imagen": "img/microondas.jpg"
+    },
+    {
+        "id": 4,
+        "nombre": "Cocina 4 Hornallas",
+        "precio": 95000,
+        "imagen": "img/cocina.jpg"
+    },
+    {
+        "id": 5,
+        "nombre": "Aire Acondicionado Split",
+        "precio": 210000,
+        "imagen": "img/aire.jpg"
+    }
+]
