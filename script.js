@@ -1,9 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const productos = [
-        { id: 1, nombre: "Heladera", precio: 150000, imagen: "heladera.jpg" },
-        { id: 2, nombre: "Lavarropas", precio: 120000, imagen: "lavarropas.jpg" },
-        { id: 3, nombre: "Microondas", precio: 80000, imagen: "microondas.jpg" }
-    ];
+    fetch("productos.json")
+        .then(response => response.json())
+        .then(data => {
+            cargarProductos(data);
+        })
+        .catch(error => console.error("Error al cargar productos:", error));
 
     let carrito = [];
 
@@ -29,9 +30,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function agregarAlCarrito(id) {
-        const producto = productos.find(prod => prod.id === id);
-        carrito.push(producto);
-        actualizarCarrito();
+        fetch("productos.json")
+            .then(response => response.json())
+            .then(productos => {
+                const producto = productos.find(prod => prod.id === id);
+                carrito.push(producto);
+                actualizarCarrito();
+            });
     }
 
     window.eliminarDelCarrito = (id) => {
@@ -48,20 +53,27 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     finalizarCompra.addEventListener("click", () => {
-        alert("Compra realizada con éxito!");
+        Swal.fire({
+            title: "Compra realizada con éxito!",
+            icon: "success",
+            confirmButtonText: "Aceptar"
+        });
         carrito = [];
         actualizarCarrito();
         modalCarrito.style.display = "none";
     });
 
-    productos.forEach(producto => {
-        let card = document.createElement("div");
-        card.innerHTML = `
-            <img src="${producto.imagen}" alt="${producto.nombre}" width="150">
-            <h3>${producto.nombre}</h3>
-            <p>Precio: $${producto.precio}</p>
-            <button onclick="agregarAlCarrito(${producto.id})">Agregar al carrito</button>
-        `;
-        contenedorProductos.appendChild(card);
-    });
+    function cargarProductos(productos) {
+        productos.forEach(producto => {
+            let card = document.createElement("div");
+            card.innerHTML = `
+                <img src="${producto.imagen}" alt="${producto.nombre}" width="150">
+                <h3>${producto.nombre}</h3>
+                <p>Precio: $${producto.precio}</p>
+                <button onclick="agregarAlCarrito(${producto.id})">Agregar al carrito</button>
+            `;
+            contenedorProductos.appendChild(card);
+        });
+    }
 });
+
